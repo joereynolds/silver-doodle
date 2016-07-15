@@ -8,8 +8,10 @@ def run():
 
     args = parser.parse_args()
 
+
     if args.file:
-        print(lint.show_errors(args.file))
+        linter = lint.Linter(args.file)
+        print(linter.show_errors())
 
 
 if __name__ == '__main__':
