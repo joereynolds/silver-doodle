@@ -1,0 +1,9 @@
+bash$ python3 ../../silver-doodle.py
+Please specify a filename to lint
+bash$ python3 ../../silver-doodle.py ../scheme-files/lists.scm
+Parenthesis should never be on their own line 6
+Parenthesis should never be on their own line 7
+Parenthesis should never be on their own line 14
+Parenthesis should never be on their own line 15
+There should be a blank line between each procedure definiton 18
+There should be a blank line between each procedure definiton 19

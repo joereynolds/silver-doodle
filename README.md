@@ -33,10 +33,20 @@ python3 silver-doodle.py YOUR_FILE.ss
 
 ## Tests
 
-To run the tests, make sure you're in the `src` directory and run
+To run the unit tests, make sure you're in the `src` directory and run
 `python3 test.py`
 
 All tests should pass.
+
+### Acceptance tests
+
+There are acceptance tests though it's not 100% necessary to run these as the unit tests will cover most cases. If you do want to try them, you'll need
+[shelltest](https://github.com/liquidz/shelltest#getting-started).
+
+Once you have that installed, it's just a case of doing
+
+`shelltest filename.py`
+
 
 ## Helping Out
 
