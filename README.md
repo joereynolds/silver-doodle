@@ -33,6 +33,8 @@ python3 silver-doodle.py YOUR_FILE.ss
 
 ## Tests
 
+### Unit tests
+
 To run the unit tests, make sure you're in the `src` directory and run
 `python3 test.py`
 
@@ -47,6 +49,11 @@ Once you have that installed, it's just a case of doing
 
 `shelltest filename.py`
 
+### All the tests
+
+If you want to run all the tests (acceptance and unit), you can just run the test.sh file in the root of the project
+
+`sh test.sh`
 
 ## Helping Out
 
