@@ -7,5 +7,6 @@ message = {
                    str(config.line_limit) + ' columns',
     'lonely_parenthesis': 'Parenthesis should never be on their own line',
     'blank_line': 'There should be a blank line between each procedure definiton',
-    'bad_variable': 'Badly named variable. Variables should be dash-separated'
+    'bad_variable': 'Badly named variable. Variables should be dash-separated',
+    'trailing_whitespace': 'You have trailing whitespace'
 }

@@ -32,13 +32,13 @@ class Linter:
         with open(self.file_to_lint) as file_to_lint:
             for line_number, line_content in enumerate(file_to_lint):
 
-                if '\t' in line_content:
+                if self.it_has_tabs(line_content):
                     errors.append([
-                        messages.message['tabs'], 
+                        messages.message['tabs'],
                         line_number
                     ])
 
-                if len(line_content) > config.line_limit:
+                if self.it_exceeds_the_line_limit(line_content):
                     errors.append([
                         messages.message['line_limit'],
                         line_number
@@ -58,13 +58,19 @@ class Linter:
                         messages.message['blank_line'],
                         line_number
                     ])
-                if self.it_has_a_badly_named_variable(
-                    line_content
-                ):
+
+                if self.it_has_a_badly_named_variable(line_content):
                     errors.append([
                         messages.message['bad_variable'],
                         line_number
                     ])
+
+                if self.it_has_trailing_whitespace(line_content):
+                    errors.append([
+                        messages.message['trailing_whitespace'],
+                        line_number
+                    ])
+
         return errors
 
     def it_has_a_brace_error(self, line_content):
@@ -88,6 +94,18 @@ class Linter:
         #Matches snake_case
         if re.match('.*(define|let)\s*[a-z]*_', line_content):
             return True
+        #All caps
+        if re.match('.*(define|let)\s*[A-Z]', line_content):
+            return True
+
+    def it_has_tabs(self, line_content):
+        return '\t' in line_content
+
+    def it_has_trailing_whitespace(self, line_content):
+        return bool(re.search(' +$', line_content))
+
+    def it_exceeds_the_line_limit(self, line_content):
+        return len(line_content) > config.line_limit
 
     def get_content_for_line(self, line_number):
         return self.file_content[line_number][1]
