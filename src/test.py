@@ -57,8 +57,8 @@ class TestLinter(unittest.TestCase):
         for test_case in test_cases:
             test_string = test_case[0]
             expected = test_case[1]
-            case = self.linter.it_has_trailing_whitespace(test_string)
-            self.assertEqual(case, expected)
+            actual = self.linter.it_has_trailing_whitespace(test_string)
+            self.assertEqual(actual, expected)
 
     #TODO This test is neglected, add the test cases into it
     def test_it_shows_errors(self):
