@@ -47,3 +47,6 @@ To do
 - 'Sassy' errors need doing
 - More difficult rules such as indentation still need to be programmed in
 - More tests
+- Integration with Syntastic
+    - I have no idea what's involved with this but I think it needs
+      to be packaged before this is possible
