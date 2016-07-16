@@ -21,6 +21,7 @@ Badly named variable. Variables should be dash-separated 15
 This line is above the recommended line limit of 100 columns 20
 There should be a blank line between each procedure definiton 28
 There should be a blank line between each procedure definiton 31
+You have trailing whitespace 34
 ```
 
 ## Using it
