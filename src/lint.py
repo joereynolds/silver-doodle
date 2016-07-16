@@ -82,6 +82,16 @@ class Linter:
             )
         )
 
+    def it_has_comment_errors(self, line_content):
+        """
+        Rules for comments
+          ';;;;' = 4 or more semicolons is a file comment
+          ';;;' = Top-level comments, usually for procedures
+          ';;' = Comments in the code indented to the same level
+          ';' = Comment as an 'aside' to explain something, at the end of the line
+        """
+        pass
+
     def it_has_no_blank_line_between_procedures(self, line_number, line_content):
         if '(define' in self.get_content_for_line(line_number).strip():
             if not self.get_content_for_line(line_number -1).startswith(';') and self.get_content_for_line(line_number -1) != '\n':

@@ -9,6 +9,7 @@ class TestLinter(unittest.TestCase):
     def setUp(self):
         self.linter = lint.Linter('tests/scheme-files/test-file.ss')
 
+    #TODO flaky test! Depends on a file that can change
     def test_it_finds_the_errors(self):
         errors = self.linter.get_errors()
 
@@ -22,6 +23,7 @@ class TestLinter(unittest.TestCase):
         self.assertIn(messages.message['blank_line'], errors[7])
         self.assertIn(messages.message['trailing_whitespace'], errors[8])
 
+    #TODO flaky test! Depends on a file that can change
     def test_it_reports_the_correct_line_number(self):
         errors = self.linter.get_errors()
 
@@ -60,7 +62,10 @@ class TestLinter(unittest.TestCase):
             actual = self.linter.it_has_trailing_whitespace(test_string)
             self.assertEqual(actual, expected)
 
-    #TODO This test is neglected, add the test cases into it
+    @unittest.skip('not implemented')
+    def test_it_finds_comments(self):
+        pass
+
     def test_it_shows_errors(self):
         """Does some weird stuff to stdout so we can test
         the printed output"""
@@ -74,6 +79,11 @@ class TestLinter(unittest.TestCase):
             self.linter.show_errors()
             output = out.getvalue().strip()
             self.assertIn('Tabs are not needed', output)
+            self.assertIn('Badly named variable.', output)
+            self.assertIn('You have trailing whitespace', output)
+            self.assertIn('There should be a blank line', output)
+            self.assertIn('This line is above the recommended line limit', output)
+            self.assertIn('Parenthesis should never be on their own line', output)
         finally:
             sys.stdout = saved_stdout
 
