@@ -84,6 +84,10 @@ class TestLinter(unittest.TestCase):
             actual = self.linter.it_has_trailing_whitespace(test_string)
             self.assertEqual(actual, expected)
 
+    def test_it_finds_tabs(self):
+        test_case = self.linter.it_has_tabs('\t(define')
+        self.assertEqual(test_case, True)
+
     @unittest.skip('not implemented')
     def test_it_finds_comments(self):
         pass
