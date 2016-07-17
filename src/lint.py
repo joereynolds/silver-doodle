@@ -98,17 +98,20 @@ class Linter:
                return True
 
     def it_has_a_badly_named_variable(self, line_content):
-        #Matches camelCase
-        if re.match('.*(define|let|lambda)\s*.*[a-z]*[A-Z]', line_content):
+        if (self.it_matches_camel_case(line_content) or
+            self.it_matches_snake_case(line_content) or
+            self.it_matches_upper_case(line_content)):
             return True
-        #Matches snake_case
-        if re.match('.*(define|let|lambda)\s*.*[a-z]*_', line_content):
-            return True
-        #All caps
-        if re.match('.*(define|let|lambda)\s*.*[A-Z]', line_content):
-            return True
-
         return False
+
+    def it_matches_camel_case(self, line_content):
+        return bool(re.match('.*(define|let|lambda)\s+.*[a-z]*[A-Z]', line_content))
+
+    def it_matches_snake_case(self, line_content):
+        return bool(re.match('.*(define|let|lambda)\s+.*[a-z]+_', line_content))
+
+    def it_matches_upper_case(self, line_content):
+        return bool(re.match('.*(define|let|lambda)\s+.*[A-Z]', line_content))
 
     def it_has_tabs(self, line_content):
         return '\t' in line_content

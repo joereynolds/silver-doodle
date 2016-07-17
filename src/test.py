@@ -43,32 +43,61 @@ class TestLinter(unittest.TestCase):
     def test_it_has_no_blank_line_between_procedures(self):
         pass
 
-    def test_it_finds_badly_named_variables(self):
-
-        true_cases = [
-            '(define absValue',
-            '(define abs_value',
-            '(define ABS_VALUE',
-            '(define (TEST) 1)',
-            '(let ((TEST 1)) TEST)',
-            '((lambda (TEST TEST2) 1) 1 2)',
+    @unittest.skip('failing test')
+    def test_it_doesnt_match_quoted_strings_as_variables(self):
+        test_cases = [
+            '(define (my-test) "a_string"',
+            '(define (my-test) "ASTRING"',
+            '(define (my-test) "aString"',
         ]
 
-        for test_case in true_cases:
-            self.assertEqual(self.linter.it_has_a_badly_named_variable(test_case), True)
+        for test_case in test_cases:
+            self.assertEqual(self.linter.it_has_a_badly_named_variable(test_case), False)
 
-        false_cases = [
+    def test_it_doesnt_match_good_variable_names(self):
+        test_cases = [
             '(define (my-test) 1)',
             '(let ((test 1)) test)',
             '(define abs-value',
-            #FAILING TEST CASES!
-            #'(define (my-test) "a_string"',
-            #'(define (my-test) "ASTRING"',
-            #'(define (my-test) "aString"',
         ]
 
-        for test_case in false_cases:
+        for test_case in test_cases:
             self.assertEqual(self.linter.it_has_a_badly_named_variable(test_case), False)
+
+    def test_it_matches_camel_case(self):
+        test_cases = [
+            ['(define absValue', True],
+            ['(let ((myTest 1)))', True],
+        ]
+
+        for test_case in test_cases:
+            expected = test_case[1]
+            actual = test_case[0]
+            self.assertEqual(self.linter.it_matches_camel_case(actual), expected)
+
+    def test_it_matches_snake_case(self):
+        test_cases = [
+            ['(define abs_value', True],
+            ['(let ((my_test 1)))', True],
+        ]
+
+        for test_case in test_cases:
+            expected = test_case[1]
+            actual = test_case[0]
+            self.assertEqual(self.linter.it_matches_snake_case(actual), expected)
+
+    def test_it_matches_upper_case(self):
+        test_cases = [
+            ['(define ABS_VALUE', True],
+            ['(define (TEST) 1)', True],
+            ['(let ((TEST 1)) TEST)', True],
+            ['((lambda (TEST TEST2) 1) 1 2)', True],
+        ]
+
+        for test_case in test_cases:
+            expected = test_case[1]
+            actual = test_case[0]
+            self.assertEqual(self.linter.it_matches_upper_case(actual), expected)
 
     def test_it_finds_trailing_whitespace(self):
         test_cases = [
