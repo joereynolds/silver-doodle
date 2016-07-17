@@ -39,6 +39,10 @@ class TestLinter(unittest.TestCase):
         content = self.linter.get_content_for_line(8)
         self.assertEqual(content, ')\n')
 
+    @unittest.skip('not implemented')
+    def test_it_has_no_blank_line_between_procedures(self):
+        pass
+
     def test_it_finds_badly_named_variables(self):
 
         true_cases = [

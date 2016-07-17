@@ -94,7 +94,7 @@ class Linter:
 
     def it_has_no_blank_line_between_procedures(self, line_number, line_content):
         if '(define' in self.get_content_for_line(line_number).strip():
-            if not self.get_content_for_line(line_number -1).startswith(';') and self.get_content_for_line(line_number -1) != '\n':
+            if not self.get_content_for_line(line_number -1).startswith(';') and self.get_content_for_line(line_number -1) != '\n' and line_number != 0:
                return True
 
     def it_has_a_badly_named_variable(self, line_content):
