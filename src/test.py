@@ -28,9 +28,9 @@ class TestLinter(unittest.TestCase):
         errors = self.linter.get_errors()
 
         line_number = 1
-        self.assertEqual(errors[0][line_number], 0)
-        self.assertEqual(errors[1][line_number], 7)
-        self.assertEqual(errors[2][line_number], 8)
+        self.assertEqual(errors[0][line_number], 1)
+        self.assertEqual(errors[1][line_number], 8)
+        self.assertEqual(errors[2][line_number], 9)
 
     def test_the_file_content_gets_populated(self):
         self.assertGreater(len(self.linter.file_content), 1)
@@ -40,13 +40,31 @@ class TestLinter(unittest.TestCase):
         self.assertEqual(content, ')\n')
 
     def test_it_finds_badly_named_variables(self):
-        test_case = self.linter.it_has_a_badly_named_variable('(define absValue')
-        other_test_case = self.linter.it_has_a_badly_named_variable('(define abs_value')
-        caps_test_case = self.linter.it_has_a_badly_named_variable('(define ABS_VALUE')
 
-        self.assertEqual(test_case, True)
-        self.assertEqual(other_test_case, True)
-        self.assertEqual(caps_test_case, True)
+        true_cases = [
+            '(define absValue',
+            '(define abs_value',
+            '(define ABS_VALUE',
+            '(define (TEST) 1)',
+            '(let ((TEST 1)) TEST)',
+            '((lambda (TEST TEST2) 1) 1 2)',
+        ]
+
+        for test_case in true_cases:
+            self.assertEqual(self.linter.it_has_a_badly_named_variable(test_case), True)
+
+        false_cases = [
+            '(define (my-test) 1)',
+            '(let ((test 1)) test)',
+            '(define abs-value',
+            #FAILING TEST CASES!
+            #'(define (my-test) "a_string"',
+            #'(define (my-test) "ASTRING"',
+            #'(define (my-test) "aString"',
+        ]
+
+        for test_case in false_cases:
+            self.assertEqual(self.linter.it_has_a_badly_named_variable(test_case), False)
 
     def test_it_finds_trailing_whitespace(self):
         test_cases = [

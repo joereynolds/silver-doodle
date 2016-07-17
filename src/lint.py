@@ -35,19 +35,19 @@ class Linter:
                 if self.it_has_tabs(line_content):
                     errors.append([
                         messages.message['tabs'],
-                        line_number
+                        line_number + 1
                     ])
 
                 if self.it_exceeds_the_line_limit(line_content):
                     errors.append([
                         messages.message['line_limit'],
-                        line_number
+                        line_number + 1
                     ])
 
                 if self.it_has_a_brace_error(line_content):
                     errors.append([
                         messages.message['lonely_parenthesis'],
-                        line_number
+                        line_number + 1
                     ])
 
                 if self.it_has_no_blank_line_between_procedures(
@@ -56,19 +56,19 @@ class Linter:
                 ):
                     errors.append([
                         messages.message['blank_line'],
-                        line_number
+                        line_number + 1
                     ])
 
                 if self.it_has_a_badly_named_variable(line_content):
                     errors.append([
                         messages.message['bad_variable'],
-                        line_number
+                        line_number + 1
                     ])
 
                 if self.it_has_trailing_whitespace(line_content):
                     errors.append([
                         messages.message['trailing_whitespace'],
-                        line_number
+                        line_number + 1
                     ])
 
         return errors
@@ -99,14 +99,16 @@ class Linter:
 
     def it_has_a_badly_named_variable(self, line_content):
         #Matches camelCase
-        if re.match('.*(define|let)\s*[a-z]*[A-Z]', line_content):
+        if re.match('.*(define|let|lambda)\s*.*[a-z]*[A-Z]', line_content):
             return True
         #Matches snake_case
-        if re.match('.*(define|let)\s*[a-z]*_', line_content):
+        if re.match('.*(define|let|lambda)\s*.*[a-z]*_', line_content):
             return True
         #All caps
-        if re.match('.*(define|let)\s*[A-Z]', line_content):
+        if re.match('.*(define|let|lambda)\s*.*[A-Z]', line_content):
             return True
+
+        return False
 
     def it_has_tabs(self, line_content):
         return '\t' in line_content

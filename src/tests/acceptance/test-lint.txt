@@ -1,9 +1,16 @@
 bash$ python3 ../../silver-doodle.py
 Please specify a filename to lint
 bash$ python3 ../../silver-doodle.py ../scheme-files/lists.scm
-Parenthesis should never be on their own line 6
 Parenthesis should never be on their own line 7
-Parenthesis should never be on their own line 14
+Parenthesis should never be on their own line 8
 Parenthesis should never be on their own line 15
-There should be a blank line between each procedure definiton 18
+Parenthesis should never be on their own line 16
+Badly named variable. Variables should be dash-separated 18
 There should be a blank line between each procedure definiton 19
+Badly named variable. Variables should be dash-separated 19
+There should be a blank line between each procedure definiton 20
+bash$ python3 ../../silver-doodle.py ../scheme-files/variables-not-detected-by-linter.scm
+There should be a blank line between each procedure definiton 1
+Badly named variable. Variables should be dash-separated 1
+Badly named variable. Variables should be dash-separated 2
+Badly named variable. Variables should be dash-separated 3
